@@ -1,0 +1,24 @@
+$levels:(
+        //       320   670   960   1280  1440   1920   2560
+        blue:   (4px,  4px,  4px,  4px,  4px,   4px,   4px),  /*2xs*/
+        yellow: (8px,  8px,  8px,  8px,  8px,   8px,   8px),  /*xs*/
+        violet: (12px, 12px, 12px, 12px, 12px,  12px,  12px),  /*s*/
+        green:  (16px, 16px, 24px, 24px, 24px,  24px,  24px),  /*m*/
+        gray:   (24px, 24px, 32px, 32px, 32px,  32px,  32px),  /*l*/
+        orange:  (32px, 32px, 48px, 48px, 48px,  48px,  48px),  /*xl*/
+        black:  (48px, 48px, 64px, 64px, 64px,  64px,  64px), /*2xl*/
+);
+$breakpoints: (320px, 670px, 960px, 1280px, 1440px, 1920px, 2560px);
+
+
+@mixin margin-level($color, $pos: margin, $side: '', $plus: 0px){
+        $i: 1;
+        @each $level in map-get($levels, $color) {
+                @media screen and (min-width: #{ nth($breakpoints, $i) }) {
+                        #{$pos}#{if($side == "","","-"+$side)}: calc(#{$level} + #{$plus});
+                }
+                $i: $i + 1;
+        }
+}
+
+

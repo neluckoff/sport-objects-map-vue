@@ -1,0 +1,235 @@
+// vars
+:root {
+    --container-padding: 80px;
+    --text-size: 15px;
+    --h1-size: 60px;
+    --h2-size: 46px;
+    --h3-size: 43px;
+    --h4-size: 33px;
+    --h5-size: 20px;
+    --h1-size-line: 69px;
+    --h2-size-line: 53px;
+    --h3-size-line: 45px;
+    --h4-size-line: 38px;
+    --h5-size-line: 23px;
+}
+
+//laptop
+@media (max-width: 1440px) {
+    :root {
+        --container-padding: 50px;
+        --text-size: 15px;
+        --h1-size: 50px;
+        --h2-size: 40px;
+        --h3-size: 36px;
+        --h4-size: 33px;
+        --h5-size: 20px;
+        --h1-size-line: 55px;
+        --h2-size-line: 44px;
+        --h3-size-line: 40px;
+        --h4-size-line: 38px;
+        --h5-size-line: 23px;
+    }
+}
+
+// pad
+@media (max-width: 1280px) {
+    :root {
+        --container-padding: 50px;
+        --text-size: 15px;
+        --h1-size: 60px;
+        --h2-size: 46px;
+        --h3-size: 43px;
+        --h4-size: 33px;
+        --h5-size: 20px;
+        --h1-size-line: 69px;
+        --h2-size-line: 53px;
+        --h3-size-line: 50px;
+        --h4-size-line: 38px;
+        --h5-size-line: 23px;
+    }
+}
+// phone
+@media (max-width: 576px) {
+    :root {
+        --container-padding: 20px;
+        --text-size: 15px;
+        --h1-size: 38px;
+        --h2-size: 30px;
+        --h3-size: 28px;
+        --h4-size: 26px;
+        --h5-size: 20px;
+        --h1-size-line: 45px;
+        --h2-size-line: 38px;
+        --h3-size-line: 34px;
+        --h4-size-line: 30px;
+        --h5-size-line: 23px;
+    }
+}
+
+$container-padding: var(--container-padding);
+$h1-size: var(--h1-size);
+$h2-size: var(--h2-size);
+$h3-size: var(--h3-size);
+$h4-size: var(--h4-size);
+$h5-size: var(--h5-size);
+
+$h1-size-line: var(--h1-size-line);
+$h2-size-line: var(--h2-size-line);
+$h4-size-line: var(--h4-size-line);
+$h3-size-line: var(--h3-size-line);
+$h5-size-line: var(--h5-size-line);
+
+
+$border-radius-1: 7px;
+$border-radius-2: 13px;
+$padding-1: 40px;
+
+$color-1: #ffffff;
+$color-2: #000000;
+$color-3: #1A82FF;
+$color-4: #E2E4E4;
+$color-5: #808080;
+$color-6: #FFFFFF57;
+$color-7: #BBBBBB;
+$color-8: #707070;
+
+//$container-padding-xl: 80px;
+//$container-padding-xl: 80px;
+
+//
+$text-primary: #000000;
+$text-secondary: #666;
+$font-default: "Ubuntu", sans-serif;
+$font-primary: "Ubuntu", sans-serif;
+
+$text-size: var(--text-size);
+$font-white: #fff;
+$font-gray: #cfe0ff; //#919cb0;
+$bg-dark-blue: #131829;
+
+$color-red: #d93d3d;
+$color-green: #4ead58;
+$color-yellow: #fec94c;
+$color-bg: #161924;
+
+// Grid system
+$screen-xs: 360px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1400px;
+
+$container-xs: 0px;
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+$container-xxl: 1320px;
+
+/*
+// Columns
+$container-max-widths: (
+    xs: $container-xs,
+    sm: $container-sm,
+    md: $container-md,
+    lg: $container-lg,
+    xl: $container-xl,
+    xxl: $container-xxl
+) !default;
+
+$grid-breakpoints: (
+  xs: $screen-xs,
+  sm: $screen-sm,
+  md: $screen-md,
+  lg: $screen-lg,
+  xl: $screen-xl,
+  xxl: $screen-xxl
+) !default;*/
+
+$container-max-widths: (
+    //xs: 360px,
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px
+);
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+
+// Grid columns
+$gutter: 20px;
+$grid-columns: 12 !default;
+$grid-gutter-width: $gutter*2 !default;
+
+$h1-font-sizes: (
+    null : 1.875rem,
+    // 30px
+    768px : 2.5rem,
+    // 40px
+    1024px: 3.75rem // 60px
+);
+
+$h2-font-sizes: (
+    null : 1.5rem,
+    // 24px
+    768px : 2rem,
+    // 32px
+    1024px: 2rem // 32px
+);
+
+$h3-font-sizes: (
+    null : 1.375rem,
+    // 22px
+    768px : 1.625rem,
+    // 26px
+    1024px: 2rem // 32px
+);
+
+$h4-font-sizes: (
+    null : 1.25rem,
+    // 20px
+    768px : 1.25rem,
+    // 20px
+    1024px: 1.625rem // 26px
+);
+
+$h5-font-sizes: (
+    null : 1rem,
+    // 17px
+    768px : 1rem,
+    // 17px
+    1024px: 1.25rem // 20px
+);
+
+$p-font-sizes: (
+    null : 0.875rem,
+    // 14px
+    768px : 0.938rem,
+    // 15px
+    1024px: 1rem // 17px
+);
+
+$btn-font-sizes: (
+    null : 0.875rem,
+    // 14px
+);
+
+$span-font-sizes: (
+    null : 0.813rem,
+    // 13px
+);
+
+$caption-font-sizes: (
+    null : 0.71rem,
+    // 12px
+);

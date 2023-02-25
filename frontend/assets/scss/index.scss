@@ -1,0 +1,130 @@
+@import "_base/variables";
+@import "_base/reset";
+@import "_base/bootstrap";
+@import "_base/anims";
+@import "_fonts/fonts";
+@import "_fonts/tipography";
+@import "_ui/btn";
+@import "_ui/modal";
+@import "_ui/markdown";
+@import "_ui/card";
+
+
+* {
+    box-sizing: border-box;
+}
+
+div,
+p,
+span {
+    //user-select: none;
+    font-size: $text-size;
+}
+
+h1 {
+    font-size: $h1-size;
+}
+
+h2 {
+    font-size: $h2-size;
+}
+
+h3 {
+    font-size: $h3-size;
+}
+
+h4 {
+    font-size: $h4-size;
+}
+
+h5 {
+    font-size: $h5-size;
+}
+
+h6 {
+    font-size: $text-size;
+}
+
+@media screen and (max-width: 576px) {
+    h1 br, h2 br, h3 br, h4 br, h5 br {
+        display: none
+    }
+}
+
+.p-20 {
+    padding: 20px;
+}
+.p-30 {
+    padding: 30px;
+}
+
+svg {
+    //max-width: 16px;
+    //max-height: 16px;
+    fill: $text-secondary;
+}
+
+button {
+    border: none;
+}
+
+.row-flex {
+    display: flex;
+    flex-wrap: wrap;
+    & > div {
+        display: inline-flex
+    }
+}
+
+.icon {
+    svg {
+        max-width: 16px;
+        max-height: 16px;
+    }
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px 0 rgba(0, 0, 0, 0.0);
+    box-shadow: inset 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
+    background: rgba(15, 25, 56, 0.3);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(19, 24, 41, 0.8);
+    border: 0px solid rgba(19, 24, 41, 0.8);
+    cursor: pointer;
+}
+
+html {
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+body {
+    font-family: $font-default, sans-serif;
+    font-size: $text-size;
+    font-weight: 300;
+    color: $text-secondary;
+    padding: 0;
+    margin: 0;
+    background-color: $color-1;
+}
+
+input {
+    font-family: $font-default, sans-serif;
+}
+
+.row-flex {
+    & > div {
+        display: inline-flex;
+    }
+}

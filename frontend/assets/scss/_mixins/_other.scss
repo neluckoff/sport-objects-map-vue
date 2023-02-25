@@ -1,0 +1,55 @@
+/*Пример @include border-radius(6px, 6px, 6px, 6px);*/
+/* border-radius */
+
+@mixin border-radius($topLeft, $topRight, $bottomRight, $bottomLeft) {
+    -webkit-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+    -moz-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+    -ms-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+    -o-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+    border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+  }
+  
+  /* END border-radius */
+  
+  
+  /* Пример
+      div::after {
+      @include pseudo;
+      top: -1rem; left: -1rem;
+      width: 1rem; height: 1rem;
+    }    */
+  /* Before and After */
+  
+  @mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+  }
+  
+  /* END Before and After */
+
+
+// Горизонтальная линия
+// пример: @include sep-h(80%,2px,$blue);
+@mixin sep-h($w, $h, $color, $pt: inherit, $pr:inherit, $pb: 0, $pl: inherit) {
+  &:after {
+    @include pseudo();
+    height: $h;
+    width: $w;
+    margin: 0 auto;
+    background-color: $color;    
+  }
+}
+// END Горизонтальная линия
+
+//убрать псевдо элементы, all - все, after, before
+@mixin nopseudo($elem: "all"){
+  @if ($elem == "all"){
+    &:after{ display: none; }
+    &:before{ display: none; }
+  } @else if ($elem == "after"){
+    &:after{ display: none; }
+  } @else if ($elem == "before"){
+    &:before{ display: none; }
+  }
+}
