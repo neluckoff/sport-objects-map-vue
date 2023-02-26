@@ -1,5 +1,5 @@
 <template>
-  <blocks-map></blocks-map> <!-- :items="items" -->
+  <blocks-map2></blocks-map2> <!-- :items="items" -->
 </template>
 
 <script>

@@ -22,11 +22,23 @@ class Database:
 
         self.__cursor.execute("SELECT * FROM `sports_objects` WHERE `is_active` = 'Y' LIMIT 800")
         for row in self.__cursor.fetchall():
+            if row[12]:
+                sport = row[12].title()
+            else:
+                sport = row[12]
+            if row[3]:
+                desc = row[3].replace('&#40', '').replace('&#41', '')
+            else:
+                desc = row[3]
             objects.append({
                 "id": row[0],
                 "name": row[1],
+                "desc": desc,
                 "active": row[2],
                 "address": row[7],
+                "action": row[10].title(),
+                "objectType": row[11].title(),
+                "sportType": sport,
                 "coordinates": {"lat": row[13], "lng": row[14]}
             }
             )

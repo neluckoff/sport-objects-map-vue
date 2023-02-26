@@ -4,7 +4,7 @@ export default {
   loading: true,
 
   head: {
-    title: 'yandex-map',
+    title: 'Sport Objects Map',
     htmlAttrs: {
       lang: 'ru'
     },
@@ -74,13 +74,13 @@ export default {
 
   pwa: {
     meta: {
-        title: 'ЦРК МИРЭА',
+        title: 'Sport Objects Map',
         author: 'luckoff',
         // theme_color: '#f3f3f3',
     },
     manifest: {
-        name: 'ЦРК МИРЭА',
-        short_name: 'ЦРК МИРЭА',
+        name: 'Sport Objects Map',
+        short_name: 'Sport Objects Map',
         lang: 'ru',
     },
   },
