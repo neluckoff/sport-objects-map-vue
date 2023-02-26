@@ -1,7 +1,9 @@
-import Vue from 'vue';
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-import 'leaflet/dist/leaflet.css';
+import Vue from 'vue'
+import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
+import * as Vue2Leaflet from 'vue2-leaflet'
 
-Vue.component('l-map', LMap);
-Vue.component('l-tile-layer', LTileLayer);
-Vue.component('l-marker', LMarker);
+Vue.component('v-marker-cluster', Vue2LeafletMarkerCluster)
+Vue.component('v-icondefault', Vue2Leaflet.LIconDefault)
+Vue.component('v-tilelayer', Vue2Leaflet.LTileLayer)
+Vue.component('v-map', Vue2Leaflet.LMap)
+Vue.component('v-marker', Vue2Leaflet.LMarker)

@@ -20,17 +20,14 @@ class Database:
     def get_objects(self):
         objects = []
 
-        self.__cursor.execute("SELECT * FROM `sports_objects`")
+        self.__cursor.execute("SELECT * FROM `sports_objects` WHERE `is_active` = 'Y' LIMIT 800")
         for row in self.__cursor.fetchall():
             objects.append({
                 "id": row[0],
                 "name": row[1],
                 "active": row[2],
                 "address": row[7],
-                "coordinates": {
-                    "X": row[14],
-                    "Y": row[13],
-                    "all": [row[14], row[13]],
-                }
-            })
+                "coordinates": {"lat": row[13], "lng": row[14]}
+            }
+            )
         return objects

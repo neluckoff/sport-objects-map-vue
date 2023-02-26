@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .svg {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     width: 20px;
     height: auto;
     display: flex;
@@ -34,7 +34,6 @@ export default {
     :deep() svg {
         width: 100%;
         height: 100%;
-        fill: red;
     }
 }
 </style>

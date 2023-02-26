@@ -33,7 +33,7 @@ export default {
   },
 
   plugins: [
-    // { src: '~plugins/leaflet.js', mode: 'client' },
+    { src: '~plugins/leaflet.js', mode: 'client' },
   ],
 
   components: true,
@@ -54,18 +54,19 @@ export default {
   modules: [
     ['@nuxtjs/axios'],
     ['@nuxtjs/pwa'],
-    ['nuxt-leaflet']
+    ['nuxt-leaflet'],
+    // ['vue2-leaflet-markercluster']
   ],
 
   axios: {
-    prefix: '/api/v1/',
+    prefix: '/api',
         proxy: true,
   },
 
   proxy: {
-    '/api/v1': {
+    '/api': {
         target: 'http://localhost:8010',
-        secure: false,
+        pathRewrite: {'^/api/': ''},
         headers: { 'X-API-KEY': 'apiKey' },
         //logLevel: 'debug',
     },

@@ -55,6 +55,7 @@
     "vue-virtual-scroller": "^1.0.10",
     "vue2-circle-progress": "^1.2.3",
     "vue2-leaflet": "^2.7.1",
+    "vue2-leaflet-markercluster": "^3.1.0",
     "vue3-marquee": "^3.1.2",
     "vuedraggable": "^2.24.3",
     "vuesax": "^3.12.2",
