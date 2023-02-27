@@ -35,7 +35,7 @@
                     </div>
                     <div class="information__text-block">
                         <div class="icon">
-                            <base-svg name="geo"></base-svg>
+                            <base-svg name="geo" class="geo-svg"></base-svg>
                         </div>
                         <div class="info">
                             <span class="head-span">Адресс</span>
@@ -103,6 +103,10 @@
                                 </l-icon>
                             </v-marker>
                         </template>
+                        
+                        <div class="map__window-infos">
+                            <span>Объектов на карте: {{ items.length }}</span>
+                        </div>
                     </v-map>
                 </client-only>
             </div>
@@ -288,6 +292,10 @@ data: () => ({
                                 max-height: 100%;
                             }
                         }
+
+                        .geo-svg {
+                            width: 28px;
+                        }
                     }
 
                     .info {
@@ -362,6 +370,23 @@ data: () => ({
             // 	display: none;
             // }
 	        }
+        }
+
+        &-infos {
+            position: absolute;
+            border-radius: 20px 20px 0 0;
+            right: 20px;
+            bottom: 0px;
+            z-index: 999;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
+
+            span {
+                color: #808080;
+                font-size: 16px;
+                font-weight: 500;
+            }
         }
     }
 }
