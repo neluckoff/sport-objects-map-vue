@@ -52,6 +52,6 @@
 	},
     async mounted() {
         this.fetch()
-    }
+    },
   }
 </script>

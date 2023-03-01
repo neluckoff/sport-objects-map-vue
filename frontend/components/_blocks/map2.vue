@@ -51,9 +51,12 @@
                             <span class="info-span">{{ cardItem.action }}</span>
                         </div>
                     </div>
+                    <div class="information__text-block">
+                        <blocks-pie-finance :idObject="cardItem.id" id="graph"></blocks-pie-finance>
+                        <p>{{ cardItem.id }}</p>
+                    </div>
 
-                    <!-- 
-                    <span>Активный: {{ (cardItem.active === 'Y') ? 'Да' : 'Нет' }}</span> -->
+                    <!-- <span>Активный: {{ (cardItem.active === 'Y') ? 'Да' : 'Нет' }}</span> -->
                 </div>
             </div>
             <div class="settings" v-else>
@@ -131,6 +134,7 @@ data: () => ({
         mapSelected: "Спутниковая",
         pointGroup: true,
         cardItem: null,
+        showGraph: true,
 	}),
 	methods: {
 		async fetch() {
@@ -149,8 +153,9 @@ data: () => ({
 			}
 		},
         async openDesc(item) {
-            this.cardItem = item
-            this.center = [item.coordinates.lat, item.coordinates.lng]
+            this.showGraph = false;
+            this.center = [item.coordinates.lat, item.coordinates.lng];
+            this.cardItem = item;
         },
         // async recenterMap(item) {
         //     this.center = [item.coordinates.lat, item.coordinates.lng]
@@ -167,6 +172,10 @@ data: () => ({
             } else if (newValue === "Рельефная") {
                 this.map = "http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
             }
+        },
+        showGraph() {
+            this.$forceUpdate()
+            this.showGraph = true
         },
         pointGroup() {
 

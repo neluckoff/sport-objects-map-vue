@@ -16,4 +16,5 @@ def get_objects():
 
 @router.get('/financing/{id}')
 def get_objects(id: int):
+    print(id)
     return db.get_cash_object(id_object=id)
