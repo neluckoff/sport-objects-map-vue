@@ -1,5 +1,6 @@
 <template>
-  <blocks-map2></blocks-map2> <!-- :items="items" -->
+  <blocks-map2></blocks-map2>
+  <!-- <blocks-graph></blocks-graph> -->
 </template>
 
 <script>

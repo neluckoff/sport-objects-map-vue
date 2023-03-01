@@ -34,6 +34,7 @@ export default {
 
   plugins: [
     { src: '~plugins/leaflet.js', mode: 'client' },
+    { src: '~plugins/chart.js', mode: 'client' },
   ],
 
   components: true,

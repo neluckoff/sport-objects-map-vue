@@ -24,7 +24,7 @@
                     <span class="desc">{{ cardItem.desc }}</span>
                 </div>
                 <div class="information__text">
-                    <div class="information__text-block">
+                    <div class="information__text-block" v-if="cardItem.sportType != null">
                         <div class="icon">
                             <base-svg name="volleyball"></base-svg>
                         </div>
@@ -33,7 +33,7 @@
                             <span class="info-span">{{ cardItem.sportType }}</span>
                         </div>
                     </div>
-                    <div class="information__text-block">
+                    <div class="information__text-block" v-if="cardItem.address != null">
                         <div class="icon">
                             <base-svg name="geo" class="geo-svg"></base-svg>
                         </div>
@@ -42,7 +42,7 @@
                             <span class="info-span">{{ cardItem.address }}</span>
                         </div>
                     </div>
-                    <div class="information__text-block">
+                    <div class="information__text-block" v-if="cardItem.action != null">
                         <div class="icon">
                             <base-svg name="hammer"></base-svg>
                         </div>
@@ -115,16 +115,19 @@
 </template>
 
 <script>
+
 export default {
 data: () => ({
 		items: [],
         options: {
             minZoom: 3,
             maxZoom: 17,
-            subdomains:['mt0','mt1','mt2','mt3']
+            subdomains:['mt0','mt1','mt2','mt3'],
+            // maxBoundsViscosity: 1,
+            // bounds: [[-89.98155760646617,  -180 ], [89.99346179538875, 180]]
         },
         center: [61.374, 63.5594],
-        map: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', //https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+        map: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', //https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png // 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
         mapSelected: "Спутниковая",
         pointGroup: true,
         cardItem: null,
@@ -134,7 +137,7 @@ data: () => ({
 			try {
 				if (!this.add) {
 					let response = await this.$axios.$get(
-						`/api/v1/objects`,
+						`/api/v1/objects/open`,
 						{}
 					);
 					if (response) {
