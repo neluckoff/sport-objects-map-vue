@@ -1,7 +1,7 @@
 <template>
     <section>
         <client-only>
-            <pie-chartjs :chart-data="chartData" v-if="showGraph" />
+            <doughnut-chartjs :chart-data="chartData" :options="options" />
         </client-only>
     </section>
 </template>
@@ -16,9 +16,12 @@
     },
     data() {
         return {
-            showGraph: false,
             items: [],
-            chartData: {}
+            chartData: {},
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
         };
     },
     methods: {
@@ -37,12 +40,11 @@
                             datasets: [
                                 {
                                     // label: 'Финансирование спортивного ~объекта',
-                                    backgroundColor: [ '#1E9600', '#99C802', '#FFF200', '#F89403' ],
+                                    backgroundColor: [ '#F46A4E', '#F4874B', '#F3B05A', '#A3586D' ],
                                     data: response,
                                 },
                             ]
                         }
-                        this.showGraph = true;
 					}
 				}
 			} catch (err) {

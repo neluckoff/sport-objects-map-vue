@@ -1,5 +1,5 @@
 <template>
-  <blocks-map2></blocks-map2>
+  <blocks-map></blocks-map>
   <!-- <blocks-graph></blocks-graph> -->
 </template>
 
@@ -7,7 +7,7 @@
 export default {
   head() {
 		return {
-			title: `Sport Objects Map`,
+			title: `Карта Спорта`,
 			meta: [
 				{
 					hid: "description",

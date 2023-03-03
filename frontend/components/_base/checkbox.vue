@@ -91,10 +91,10 @@ export default {
 .wrapper:hover input ~ .checkmark {
     background-color: #808080;
 }
-/* When the checkbox is checked, add a #F34723 background */
+/* When the checkbox is checked, add a $color-3 background */
 .wrapper input:checked ~ .checkmark {
-    background-color: #F34723;
-    border-color: #F34723;
+    background-color: $color-3;
+    border-color: $color-3;
 }
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
@@ -110,7 +110,7 @@ export default {
     top: 0px;
     width: 5px;
     height: 9px;
-    border: solid #F34723;
+    border: solid $color-3;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);

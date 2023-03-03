@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Line, Pie, Bar } from 'vue-chartjs/legacy'
+import { Line, Pie, Bar, Doughnut } from 'vue-chartjs/legacy'
 import {
   Chart as ChartJS,
   Title,
@@ -35,4 +35,8 @@ Vue.component('pie-chartjs', {
 
 Vue.component('bar-chartjs', {
     extends: Bar
+})
+
+Vue.component('doughnut-chartjs', {
+  extends: Doughnut
 })

@@ -53,6 +53,7 @@ export default {
   },
 
   modules: [
+    ['@nuxtjs/style-resources'],
     ['@nuxtjs/axios'],
     ['@nuxtjs/pwa'],
     ['nuxt-leaflet'],
