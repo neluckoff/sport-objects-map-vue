@@ -7,14 +7,9 @@ router = APIRouter(prefix='/api/v1')
 db = Database()
 
 
-@router.get('/objects/open')
-def get_objects():
-    return db.get_online_objects()
-
-
-@router.get('/objects/closed')
-def get_objects():
-    return db.get_offline_objects()
+@router.get('/objects/')
+def get_objects(active: bool | None = None, search: str | None = None):
+    return db.get_objects(active, search)
 
 
 @router.get('/objects/find/{text}')
@@ -24,5 +19,4 @@ def get_objects(text: str):
 
 @router.get('/financing/{id}')
 def get_objects(id: int):
-    print(id)
     return db.get_cash_object(id_object=id)
