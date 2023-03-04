@@ -60,9 +60,9 @@ export default {
     margin-bottom: 0px;
     cursor: pointer;
     user-select: none;
-    color: #212121;
+    color: $color-1;
     p {
-        color: #212121;
+        color: $color-7;
         font-weight: normal;
         font-size: 14px;
         line-height: 14px;

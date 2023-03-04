@@ -1,6 +1,6 @@
 <template>
     <section>
-        <transition name="fade-width">
+        <transition name="fadeWidth">
             <div class="object" v-if="cardItem!=null">
                 <cards-object :cardItem="cardItem" :showGraph="showGraph"></cards-object>
             </div>
@@ -20,7 +20,10 @@
                         </div>
                     </div>
                     <div class="header__settings">
-                        <base-svg name="search"></base-svg>
+                        <input class="input" type="text" placeholder="Поиск" v-model="searchText" v-on:keyup.enter="search"/>
+                        <button type="button" class="search-btn" @click="search">
+                            <base-svg name="search" class="icon"></base-svg>
+                        </button>
                     </div>
                 </div>
                 <div class="settings">
@@ -54,7 +57,7 @@
                     </div>
                 </transition>
                 <div class="num-objects">
-                    <base-svg name="house"></base-svg>
+                    <base-svg name="geo"></base-svg>
                     <span>{{ items.length }}</span>
                 </div>
                 <v-map :zoom=" options.minZoom" :center="center" ref="map" @update:zoom="zoomUpdate">
@@ -99,7 +102,13 @@ data: () => ({
             maxZoom: 17,
             subdomains:['mt0','mt1','mt2','mt3'],
             // maxBoundsViscosity: 1,
-            // bounds: [[-89.98155760646617,  -180 ], [89.99346179538875, 180]]
+            // bounds: [[-89.98155760646617,  -180 ], [89.99346179538875, 180]],
+            noWrap: false,
+            // scrollWheelZoom: false,
+            attributionControl: true,
+            zoomControl: true,
+            boxZoom: true,
+            trackResize: true,
         },
         center: [61.374, 63.5594],
         map: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', //https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png // 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
@@ -109,6 +118,7 @@ data: () => ({
         showGraph: true,
         showSettings: false,
         currentZoom: null,
+        searchText: "",
 	}),
 	methods: {
 		async fetch() {
@@ -125,6 +135,26 @@ data: () => ({
 			} catch (err) {
 				console.log(err);
 			}
+		},
+        async search() {
+            console.log(this.searchText.length)
+            if (this.searchText.length != 0) {
+                try {
+                    if (!this.add) {
+                        let response = await this.$axios.$get(
+                            `/api/v1/objects/find/${this.searchText}`,
+                            {}
+                        );
+                        if (response) {
+                            this.items = response;
+                        }
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            } else {
+                this.fetch()
+            }
 		},
         async openDesc(item) {
             if (this.cardItem == null) {
@@ -147,7 +177,10 @@ data: () => ({
         },
         async closeDesc() {
             this.cardItem = null;
-            this.$refs.map.mapObject.invalidateSize(true);
+            setTimeout(() => {
+                this.$refs.map.mapObject.invalidateSize(true);
+            }, 600)
+            this.$nuxt.refresh();
             document.title = `Карта Спорта`
         },
         async reloadMap() {
@@ -201,20 +234,22 @@ section {
     z-index: 999;
     bottom: 20px;
     right: 30px;
-    background-color: white;
+    // background-color: rgba(209, 209, 209, 0.5);
+    backdrop-filter: blur(8px);
+    background-color: rgba(30,30,30,0.5);
     padding: 10px 15px;
-    border-radius: 20px;
+    border-radius: 10px;
     align-items: center;
 
     span {
         padding-left: 10px;
-        color: $color-5;
+        color: $color-1;
         font-size: 18px;
         font-weight: 500;
     }
 
     .svg {
-        width: 28px;
+        width: 20px;
         height: auto;
         
         :deep() svg {
@@ -223,13 +258,16 @@ section {
     }
 }
 
-.fade-width-enter-active, .fade-width-leave-active {
+// ---------------------- //
+.fadeWidth-enter-active, .fadeWidth-leave-active {
   transition: all 1s;
   max-width: 30%;
+//   padding: 50px;
 }
-.fade-width-enter, .fade-width-leave-to {
+.fadeWidth-enter, .fadeWidth-leave-to {
   opacity: 0;
   max-width: 0px;
+//   padding: 0;
 }
 
 .fade-height-enter-active, .fade-height-leave-active {
@@ -246,25 +284,38 @@ section {
     z-index: 999;
     margin: auto;
     position: absolute;
-    bottom: 20px;
-    left: 30px;
-    padding: 10px;
-    background-color: $color-1;
+    top: calc(50% - 40px);
+    left: 0;
+    height: 80px;
+    width: 26px;
+    backdrop-filter: blur(8px);
+    background-color: rgba(30,30,30,0.5);
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 0 10px 10px 0;
     transition: all .2s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s;
+    
 
     .svg {
-        width: 20px;
+        width: 10px;
         height: auto;
         
         :deep() svg {
-            fill: $color-3;
+            fill: $color-7;
+            transition: all 0.6s;
         }
     }
 
     &:hover {
-        opacity: 0.8;
+        width: 30px;
+        .svg {
+            :deep() svg {
+                fill: $color-1; 
+            }
+        }
     }
 }
 
@@ -272,12 +323,11 @@ section {
     overflow-y: auto;
     overflow-x: hidden;;
     box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
-    border-radius: 20px 0 0 20px;
     right: 0;
     height: 100vh;
     width: 30%;
     background-color: $color-1;
-    padding: 20px;
+    // padding: 0;
 }
 
 .settings {
@@ -285,7 +335,7 @@ section {
     position: absolute;
     right: 30px;
     top: 20px;
-    transition: all .2s ease-out;
+    transition: all 0.3s ease-out;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -294,15 +344,17 @@ section {
         padding-bottom: 5px;
 
         span { 
-            color: $color-5;
+            color: $color-1;
+            font-weight: 500;
         }
     }
 
     &__params {
         margin-top: 10px;
         padding: 20px;
-        background-color: $color-1;
-        border-radius: 20px;
+        backdrop-filter: blur(8px);
+        background-color: rgba(30,30,30,0.5);
+        border-radius: 10px;
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
 
         &-map {
@@ -318,8 +370,9 @@ section {
     &__logo {
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
         padding: 10px;
-        background-color: $color-1;
-        border-radius: 20px;
+        backdrop-filter: blur(8px);
+        background-color: rgba(30,30,30,0.5);
+        border-radius: 10px;
         cursor: pointer;
 
         &:hover {
@@ -351,10 +404,10 @@ section {
 
     &__settings {
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
-        padding: 10px;
-        background-color: $color-1;
+        backdrop-filter: blur(8px);
+        background-color: rgba(30,30,30,0.5);
         height: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         margin-left: 10px;
         cursor: pointer;
         transition: all .2s ease-out;
@@ -368,19 +421,63 @@ section {
             }
         }
 
-        &:hover {
-            opacity: 0.8;
-        }
+        width: auto;
+		position: relative;
+		display: inline-flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		.search-btn {
+			background-color: transparent;
+			position: absolute;
+			right: 12px;
+			width: 40px;
+			cursor: pointer;
+			.icon {
+				:deep() svg {
+					width: 100%;
+					height: auto;
+					max-width: 24px;
+					max-height: 24px;
+				}
+			}
+		}
+		.input {
+			display: flex;
+			border: none;
+			padding: 12px 60px 12px 18px;
+			border-radius: 10px;
+			background-color: transparent;
+			width: 100%;
+			max-width: 200px;
+			height: 100%;
+			color: $color-1;
+			font-size: 18px;
+			font-weight: 500;
+			border: 2px solid transparent;
+			transition: 0.1s ease-in-out;
+			&:focus {
+				outline: none;
+				// border: 2px solid $color-3;
+				color: $color-1;
+				max-width: 350px;
+			}
+            &::placeholder {
+                color: $color-7;
+            }
+		}
     }
 
     &__left {
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
         padding: 0 20px;
         height: 48px;
-        background-color: $color-1;
-        border-radius: 20px;
-        width: 100%;
-        display: flex;
+        backdrop-filter: blur(8px);
+        background-color: rgba(30,30,30,0.5);
+        border-radius: 10px;
+        // width: 100%;
+        display: inline-flex;
         flex-direction: row;
         align-items: center;
     }
@@ -400,7 +497,7 @@ section {
 
     &__text {
         &-basic {
-            color: #212121;
+            color: $color-1;
             font-size: 20px;
             font-weight: 600;
         }

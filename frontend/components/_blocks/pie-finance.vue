@@ -40,7 +40,7 @@
                             datasets: [
                                 {
                                     // label: 'Финансирование спортивного ~объекта',
-                                    backgroundColor: [ '#F46A4E', '#F4874B', '#F3B05A', '#A3586D' ],
+                                    backgroundColor: [ '#03cf7a', '#d93d3d', '#fec94c', '#A3586D' ],
                                     data: response,
                                 },
                             ]

@@ -5,36 +5,41 @@
 	appearance: none;
 	border: 1px solid $color-3;
 	border-radius: 6px;
-	background-color: #fff;
+	background-color: transparent;
 	padding: 10px 35px 10px 15px;
 	outline: none;
 	cursor: pointer;
-}
+	color: $color-7;
+	font-weight: 500;
 
-.select::-ms-expand {
-	display: none;
-}
+	&::-ms-expand {
+		display: none;
+	}
 
-.select:focus {
-	outline: none;
-	// box-shadow: 0px 0px 0px 1px #38577a, 0px 0px 10px $color-3;
+	&:focus {
+		outline: none;
+	}
+
+	option {
+		color: $color-2;
+	}
 }
 
 .select-wrapper {
 	position: relative;
-}
 
-.select-wrapper::before {
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: 15px;
-	transform: translateY(-50%);
-	display: block;
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 10.4px 6px 0 6px;
-	border-color: $color-3 transparent transparent transparent;
-	pointer-events: none;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		transform: translateY(-50%);
+		display: block;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 10.4px 6px 0 6px;
+		border-color: $color-3 transparent transparent transparent;
+		pointer-events: none;
+	}
 }

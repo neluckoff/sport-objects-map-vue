@@ -13,7 +13,7 @@ class Database:
     __cursor = None
     
     def __init__(self) -> None:
-        self.__db = sqlite3.connect('database.db', check_same_thread=False)
+        self.__db = sqlite3.connect('V:\\Projects\\sport-objects-map-vue\\backend\\database.db', check_same_thread=False)
         self.__cursor = self.__db.cursor()
         # self.__create_tables()
         
@@ -25,7 +25,7 @@ class Database:
             objects.append({
                 "id": row[0],
                 "name": row[1],
-                "desc": row[3].replace('&#40', '').replace('&#41', '').replace('&#37', '') if row[3] else row[3],
+                "desc": row[3].replace('&#40', '').replace('&#41', '').replace('&#37', '') if row[3] else row[4],
                 "active": row[2],
                 "address": row[7],
                 "action": row[10].title(),
@@ -34,7 +34,9 @@ class Database:
                 "coordinates": {"lat": row[13], "lng": row[14]},
                 "phone": row[21],
                 "workingTime": row[22],
-                "url": row[23]
+                "url": row[23],
+                "oktmo": row[8],
+                "fcp": row[9]
             }
         )
         return objects
@@ -48,7 +50,7 @@ class Database:
             objects.append({
                 "id": row[0],
                 "name": row[1],
-                "desc": row[3].replace('&#40', '').replace('&#41', '').replace('&#37', '') if row[3] else row[3],
+                "desc": row[3].replace('&#40', '').replace('&#41', '').replace('&#37', '') if row[3] else row[4],
                 "active": row[2],
                 "address": row[7],
                 "action": row[10].title(),
@@ -57,7 +59,9 @@ class Database:
                 "coordinates": {"lat": row[13], "lng": row[14]},
                 "phone": row[21],
                 "workingTime": row[22],
-                "url": row[23]
+                "url": row[23],
+                "oktmo": row[8],
+                "fcp": row[9]
             }
         )
         return objects
@@ -70,3 +74,33 @@ class Database:
         for row in self.__cursor.fetchone():
             cash.append(row)
         return cash
+    
+    def get_search_object(self, text: str):
+        objects = []
+        self.__cursor.execute("SELECT * FROM sports_objects WHERE address_lower LIKE ? LIMIT 800", (f'%{text.lower()}%',))
+        for row in self.__cursor.fetchall():
+            objects.append({
+                "id": row[0],
+                "name": row[1],
+                "desc": row[3].replace('&#40', '').replace('&#41', '').replace('&#37', '') if row[3] else row[4],
+                "active": row[2],
+                "address": row[7],
+                "action": row[10].title(),
+                "objectType": row[11].title() if row[11] else row[11],
+                "sportType": row[12].title() if row[12] else row[12],
+                "coordinates": {"lat": row[13], "lng": row[14]},
+                "phone": row[21],
+                "workingTime": row[22],
+                "url": row[23],
+                "oktmo": row[8],
+                "fcp": row[9]
+            }
+        )
+        return objects
+    
+    def test(self):
+        self.__cursor.execute(f"""SELECT LOWER(address) FROM sports_objects""")
+        print(self.__cursor.fetchall())
+        
+db = Database()
+db.test()

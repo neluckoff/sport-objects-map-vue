@@ -10,7 +10,12 @@
             </div>
         </div>
         <div class="information__text" v-if="this.menu.desc === true">
-            <span class="desc">{{ cardItem.desc }}</span>
+            <div class="information__text-block description">
+                <div class="info">
+                    <span class="head-span">Информация</span>
+                </div>
+                <span class="desc">{{ cardItem.desc ? cardItem.desc : 'Информация отсутствует' }}</span>
+            </div>
             <div class="information__text-block" v-if="cardItem.sportType != null">
                 <div class="icon">
                     <base-svg name="volleyball"></base-svg>
@@ -20,6 +25,34 @@
                     <span class="info-span">{{ cardItem.sportType }}</span>
                 </div>
             </div>
+            <div class="information__text-block" v-if="cardItem.oktmo != null">
+                <div class="icon">
+                    <base-svg name="book"></base-svg>
+                </div>
+                <div class="info">
+                    <span class="head-span">Код ОКТМО</span>
+                    <span class="info-span">{{ cardItem.oktmo }}</span>
+                </div>
+            </div>
+            <div class="information__text-block" v-if="cardItem.fcp != null">
+                <div class="icon">
+                    <base-svg name="passport"></base-svg>
+                </div>
+                <div class="info">
+                    <span class="head-span">ФСП</span>
+                    <span class="info-span">{{ cardItem.fcp }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="information__text" v-if="this.menu.graph === true">  
+            <div class="information__text-block description" v-if="showGraph">
+                <div class="info">
+                    <span class="head-span">График финансирования</span>
+                </div>
+                <blocks-pie-finance :idObject="cardItem.id" ref="graph"></blocks-pie-finance>
+            </div>
+        </div>
+        <div class="information__text" v-if="this.menu.contact === true">
             <div class="information__text-block" v-if="cardItem.address != null">
                 <div class="icon">
                     <base-svg name="geo" class="geo-svg"></base-svg>
@@ -46,24 +79,6 @@
                     <span class="head-span">Рабочее время</span>
                     <span class="info-span">{{ cardItem.workingTime }}</span>
                 </div>
-            </div>
-            <!-- <div class="information__text-block" v-if="cardItem.action != null">
-                <div class="icon">
-                    <base-svg name="hammer"></base-svg>
-                </div>
-                <div class="info">
-                    <span class="head-span">Действие с объектом</span>
-                    <span class="info-span">{{ cardItem.action }}</span>
-                </div>
-            </div> -->
-            <!-- <span>Активный: {{ (cardItem.active === 'Y') ? 'Да' : 'Нет' }}</span> -->
-        </div>
-        <div class="information__text" v-if="this.menu.graph === true">  
-            <div class="information__text-block graphic" v-if="showGraph">
-                <div class="info">
-                    <span class="head-span">График финансирования</span>
-                </div>
-                <blocks-pie-finance :idObject="cardItem.id" ref="graph"></blocks-pie-finance>
             </div>
         </div>
     </div>
@@ -119,7 +134,7 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px;
 
     &__button {
@@ -132,8 +147,9 @@ export default {
         cursor: pointer;
 
         &:hover {
-            background-color: $color-4;
-            border-radius: 10px;
+            // background-color: $color-4;
+            // border-radius: 8px;
+            border-bottom: 3px solid $color-8;
         }
     }
 
@@ -147,6 +163,7 @@ export default {
     line-height: 20px;
 }
 .information {
+    padding: 20px;
     transition: all 5s ease;
 
     &__head {
@@ -166,6 +183,21 @@ export default {
             padding: 10px 0;
             border-bottom: 1px solid #f7f7f7;
 
+            &:hover {
+                .info {
+                    .head-span {
+                        color: $color-3;
+                    }
+                }
+                .icon {
+                    .svg {
+                        :deep() svg {
+                            fill: $color-3;
+                        }
+                    }
+                }
+            }
+
             .icon {
                 margin-right: 20px;
 
@@ -174,6 +206,8 @@ export default {
                     height: auto;
 
                     :deep() svg {
+                        transition: all .2s ease-out;
+                        fill: $color-5;
                         max-width: 100%;
                         max-height: 100%;
                     }
@@ -188,7 +222,8 @@ export default {
                 display: flex;
                 flex-direction: column;
 
-                .head-span {
+                .head-span {                    
+                    transition: all .2s ease-out;
                     font-weight: 600;
                     color: #212121;
                     font-size: 17px;
@@ -202,6 +237,11 @@ export default {
                     padding-bottom: 0;
                 }
             }
+        }
+
+        .description {
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .graphic {
