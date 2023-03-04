@@ -1,10 +1,20 @@
 <template>
     <section>
-        <client-only>
+        <client-only >
             <doughnut-chartjs :chart-data="chartData" :options="options" />
         </client-only>
     </section>
 </template>
+
+<style lang="scss" scoped>
+div {
+    span {
+        font-size: 17px;
+        color: #808080;
+        padding-bottom: 10px;
+    }
+}
+</style>
 
 <script>
   export default {
@@ -33,6 +43,7 @@
 						`/api/v1/financing/${this.idObject}`,
 						{}
 					);
+                    this.items = response;
 					if (response) {
 						this.chartData = {
                             labels: ['Федеральный бюджет', 'Бюджет субъекта федерации', 

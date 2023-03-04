@@ -48,6 +48,16 @@
                                     <p>Группировка объектов</p>
                                 </base-checkbox>
                             </div>
+                            <div class="settings__params-radio radio-group">
+                                <label>
+                                    <input type="radio" name="radio" v-model="radioGroup" value="open" checked/>
+                                    <span>Только активные</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="radio" v-model="radioGroup" value="closed"/>
+                                    <span>Только неактивные</span>
+                                </label>
+                            </div>
                         </div>
                     </transition>
                 </div>
@@ -111,21 +121,37 @@ data: () => ({
             trackResize: true,
         },
         center: [61.374, 63.5594],
-        map: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', //https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png // 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-        mapSelected: "Спутниковая",
+        map: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
+        mapSelected: "Гибридная",
         pointGroup: true,
         cardItem: null,
         showGraph: true,
         showSettings: false,
         currentZoom: null,
         searchText: "",
+        radioGroup: "open",
 	}),
 	methods: {
 		async fetch() {
 			try {
 				if (!this.add) {
 					let response = await this.$axios.$get(
-						`/api/v1/objects/open`,
+						`/api/v1/objects/?active=True`,
+						{}
+					);
+					if (response) {
+						this.items = response;
+					}
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
+        async fetchClosed() {
+			try {
+				if (!this.add) {
+					let response = await this.$axios.$get(
+						`/api/v1/objects/?active=false`,
 						{}
 					);
 					if (response) {
@@ -142,7 +168,7 @@ data: () => ({
                 try {
                     if (!this.add) {
                         let response = await this.$axios.$get(
-                            `/api/v1/objects/find/${this.searchText}`,
+                            `/api/v1/objects/?search=${this.searchText}`,
                             {}
                         );
                         if (response) {
@@ -214,6 +240,13 @@ data: () => ({
                 this.map = "http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
             }
         },
+        radioGroup(newValue, oldValue) {
+            if (newValue === "open") {
+                this.fetch()
+            } else {
+                this.fetchClosed()
+            }
+        }
     },
 	mounted() {
 		this.fetch()
@@ -362,8 +395,13 @@ section {
         }
 
         &-checkboxes {
-            border-top: 1px solid $color-5;
-            padding: 7px 0;
+            border-top: 1px solid $color-7;
+            border-bottom: 1px solid $color-7;
+            padding: 10px 0;
+        }
+
+        &-radio {
+            padding-top: 10px;
         }
     }
 
@@ -406,7 +444,7 @@ section {
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.13);
         backdrop-filter: blur(8px);
         background-color: rgba(30,30,30,0.5);
-        height: 100%;
+        height: 48px;
         border-radius: 10px;
         margin-left: 10px;
         cursor: pointer;
