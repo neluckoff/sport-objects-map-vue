@@ -2,7 +2,7 @@
     <section>
         <transition name="fadeWidth">
             <div class="object" v-if="cardItem!=null">
-                <cards-object :cardItem="cardItem" :showGraph="showGraph"></cards-object>
+                <cards-object :cardItem="cardItem" :showGraph="showGraph" :center="center"></cards-object>
             </div>
         </transition>
         <div class="map">
@@ -205,7 +205,7 @@ data: () => ({
             this.cardItem = null;
             setTimeout(() => {
                 this.$refs.map.mapObject.invalidateSize(true);
-            }, 600)
+            }, 680)
             this.$nuxt.refresh();
             document.title = `Карта Спорта`
         },

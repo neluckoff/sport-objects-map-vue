@@ -3,12 +3,14 @@ version: '3.3'
 services:
   frontend:
     container_name: frontend
-    build: ./frontend/Dockerfile
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
     restart: always
     ports:
       - "3000:3000"
   api:
-    container_name: api
+    container_name: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile

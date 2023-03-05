@@ -25,6 +25,15 @@
                     <span class="info-span">{{ cardItem.sportType }}</span>
                 </div>
             </div>
+            <div class="information__text-block" v-if="cardItem.active != null">
+                <div class="icon">
+                    <base-svg name="wave-pulse"></base-svg>
+                </div>
+                <div class="info">
+                    <span class="head-span">Статус объекта</span>
+                    <span class="info-span">{{ cardItem.active == 'Y' ? 'Активный' : 'Неактивный' }} - {{ cardItem.action }}</span>
+                </div>
+            </div>
             <div class="information__text-block" v-if="cardItem.oktmo != null">
                 <div class="icon">
                     <base-svg name="book"></base-svg>
@@ -62,15 +71,6 @@
                     <span class="info-span">{{ cardItem.address }}</span>
                 </div>
             </div>
-            <div class="information__text-block" v-if="cardItem.phone != null">
-                <div class="icon">
-                    <base-svg name="phone"></base-svg>
-                </div>
-                <div class="info">
-                    <span class="head-span">Телефон</span>
-                    <span class="info-span">{{ cardItem.phone }}</span>
-                </div>
-            </div>
             <div class="information__text-block" v-if="cardItem.workingTime != null">
                 <div class="icon">
                     <base-svg name="timer"></base-svg>
@@ -78,6 +78,24 @@
                 <div class="info">
                     <span class="head-span">Рабочее время</span>
                     <span class="info-span">{{ cardItem.workingTime }}</span>
+                </div>
+            </div>
+            <div class="information__text-block" v-if="cardItem.phone != null">
+                <div class="icon">
+                    <base-svg name="phone"></base-svg>
+                </div>
+                <div class="info">
+                    <span class="head-span">Телефон</span>
+                    <span class="info-span"><a :href="`tel:${cardItem.phone}`">{{ cardItem.phone }}</a></span>
+                </div>
+            </div>
+            <div class="information__text-block" v-if="cardItem.url != null">
+                <div class="icon">
+                    <base-svg name="globe"></base-svg>
+                </div>
+                <div class="info">
+                    <span class="head-span">Ссылка на сайт</span>
+                    <span class="info-span"><a :href="`${cardItem.url}`" target="_blank">{{ cardItem.url }}</a></span>
                 </div>
             </div>
         </div>
@@ -94,6 +112,10 @@ export default {
         showGraph: {
             type: Boolean,
             default: true,
+        },
+        center: {
+            type: Array,
+            default: null,
         }
     },
     data: () => ({
@@ -124,7 +146,7 @@ export default {
                 graph: false,
                 contact: true,
             }
-        }
+        },
     }
 }
 </script>
@@ -235,6 +257,13 @@ export default {
                     color: #808080;
                     font-size: 17px;
                     padding-bottom: 0;
+
+                    a {
+                        font-weight: 400;
+                        color: #808080;
+                        font-size: 17px;
+                        padding-bottom: 0;
+                    }
                 }
             }
         }

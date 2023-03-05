@@ -19,13 +19,13 @@ class Database:
         
     def get_objects(self, active: bool | None = None, text: str | None = None):
         objects = []
-        print(active, text)
         
         if active is not None:
             self.__cursor.execute(f"SELECT * FROM `sports_objects` WHERE `is_active` = '{'Y' if active else 'N'}' LIMIT 800")
         elif text is not None:
             self.__cursor.execute("SELECT * FROM sports_objects WHERE address_lower LIKE ? LIMIT 800", (f'%{text.lower()}%',))
-            
+
+        
         for row in self.__cursor.fetchall():
             objects.append({
                 "id": row[0],
@@ -37,7 +37,7 @@ class Database:
                 "objectType": row[11].title() if row[11] else row[11],
                 "sportType": row[12].title() if row[12] else row[12],
                 "coordinates": {"lat": row[13], "lng": row[14]},
-                "phone": row[21],
+                "phone": ''.join(x for x in row[21] if x.isdigit()) if row[21] else row[21],
                 "workingTime": row[22],
                 "url": row[23],
                 "oktmo": row[8],
