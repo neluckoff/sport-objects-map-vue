@@ -17,4 +17,4 @@ docker-compose up -d --build
 
 Клиентская часть приложения (фронтенд) была написана на Nuxt.js (фреймворк для создания универсальных приложений на Vue.js с использованием Node.js)
 
-
+В качестве базы данных в проекте используется <a href="https://github.com/neluckoff/sport-objects-map-vue/blob/master/backend/app/package/database/tools.py">LiteSQL</a>. В будующем проекта ее легко заменить на любую SQL альтернативу, используя необходимый модуль.
