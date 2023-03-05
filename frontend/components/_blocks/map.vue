@@ -2,7 +2,7 @@
     <section>
         <transition name="fadeWidth">
             <div class="object" v-if="cardItem!=null">
-                <cards-object :cardItem="cardItem" :showGraph="showGraph" :center="center"></cards-object>
+                <cards-object :cardItem="cardItem" :showGraph="showGraph" @toggle-button="closeDesc()"></cards-object>
             </div>
         </transition>
         <div class="map">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="settings">
-                    <div class="settings__logo" @click="settings()">
+                    <div class="settings__logo" @click="settings">
                         <base-svg name="gear"></base-svg>
                     </div>
                     <transition name="fade-height">
@@ -70,7 +70,7 @@
                     <base-svg name="geo"></base-svg>
                     <span>{{ items.length }}</span>
                 </div>
-                <v-map :zoom=" options.minZoom" :center="center" ref="map" @update:zoom="zoomUpdate">
+                <v-map :zoom=" options.minZoom" :center="center" :maxBounds="bounds" :maxBoundsViscosity="0.5" ref="map" @update:zoom="zoomUpdate">
                     <v-icondefault></v-icondefault>
                     <l-tile-layer :url="map" :options="options"></l-tile-layer>
                     <v-marker-cluster v-if="pointGroup">
@@ -105,23 +105,18 @@
 
 <script>
 export default {
-data: () => ({
+    
+    data: () => ({
 		items: [],
+        bounds: [[-89.98155760646617, -180], [89.99346179538875, 180]],
         options: {
             minZoom: 3,
-            maxZoom: 17,
+            maxZoom: 18,
             subdomains:['mt0','mt1','mt2','mt3'],
-            // maxBoundsViscosity: 1,
-            // bounds: [[-89.98155760646617,  -180 ], [89.99346179538875, 180]],
             noWrap: false,
-            // scrollWheelZoom: false,
-            attributionControl: true,
-            zoomControl: true,
-            boxZoom: true,
-            trackResize: true,
         },
-        center: [61.374, 63.5594],
-        map: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
+        center: [60, 0],
+        map: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', //http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}
         mapSelected: "Гибридная",
         pointGroup: true,
         cardItem: null,
@@ -246,7 +241,7 @@ data: () => ({
             } else {
                 this.fetchClosed()
             }
-        }
+        },
     },
 	mounted() {
 		this.fetch()
@@ -583,6 +578,43 @@ section {
                 opacity: 0.8;
             }
         }
+    }
+}
+
+@media screen and (max-width: $screen-md) {
+	.header {
+        left: 0;
+
+        &__left {
+            display: none;
+        }
+    }
+
+    .settings {
+        right: 10px;
+    }
+
+    .num-objects {
+        right: 10px;
+    }
+
+    .object {
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+    }
+
+    .fadeWidth-enter-active, .fadeWidth-leave-active {
+        transition: all 1s;
+        max-width: 100%;
+    }
+    .fadeWidth-enter, .fadeWidth-leave-to {
+        opacity: 0;
+        max-width: 0;
+    }
+
+    .close-info {
+        display: none;
     }
 }
 </style>

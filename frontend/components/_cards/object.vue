@@ -1,7 +1,12 @@
 <template>
     <div class="information" v-if="cardItem!=null">
         <div class="information__head">
-            <h4>{{ cardItem.name }}</h4>
+            <div class="information__head-xmark">
+                <h4>{{ cardItem.name }}</h4>
+                <div @click="clickHandler()">
+                    <base-svg name="xmark"></base-svg>
+                </div>
+            </div>
             <span>{{ cardItem.objectType }}</span>
             <div class="menu">
                 <span class="menu__button" :class="{active: this.menu.desc === true}" @click="setDesc()">Описание</span>
@@ -112,10 +117,6 @@ export default {
         showGraph: {
             type: Boolean,
             default: true,
-        },
-        center: {
-            type: Array,
-            default: null,
         }
     },
     data: () => ({
@@ -147,6 +148,9 @@ export default {
                 contact: true,
             }
         },
+        clickHandler() {
+            this.$emit('toggle-button')
+        }
     }
 }
 </script>
@@ -169,15 +173,12 @@ export default {
         cursor: pointer;
 
         &:hover {
-            // background-color: $color-4;
-            // border-radius: 8px;
             border-bottom: 3px solid $color-8;
         }
     }
 
     .active {
         border-bottom: 3px solid $color-3;
-        // color: $color-3;
     }
 }
 .desc {
@@ -191,10 +192,30 @@ export default {
     &__head {
         display: flex;
         flex-direction: column;
+
+        &-xmark {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            .svg {
+                cursor: pointer;
+                display: none;
+
+                :deep() svg {
+                    transition: all .2s ease-out;
+                    fill: $color-5;
+
+                    &:hover {
+                        fill: $color-3;
+                    }
+                }
+            }
+        }
     }
 
     &__text {
-        // padding-top: 10px;
         display: flex;
         flex-direction: column;
 
@@ -288,6 +309,18 @@ export default {
         font-size: 17px;
         color: #808080;
         padding-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: $screen-md) {
+    .information {
+        &__head {
+            &-xmark {
+                .svg {
+                    display: flex;
+                }
+            }
+        }
     }
 }
 </style>

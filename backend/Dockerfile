@@ -8,7 +8,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip
-COPY ./backend/requirements.txt .
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+
+ENV HOST 0.0.0.0
+EXPOSE 8010
 
 COPY . .

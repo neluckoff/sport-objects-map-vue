@@ -1,10 +1,14 @@
 export default {
-  target: 'static',
+  // target: 'static',
   ssr: true,
   loading: true,
+  server: {
+    host: process.env.HOST || '0.0.0.0',
+    port: process.env.PORT || 3000
+  },
 
   head: {
-    title: 'Sport Objects Map',
+    title: 'Карта Спорта',
     htmlAttrs: {
       lang: 'ru'
     },
@@ -40,7 +44,6 @@ export default {
   components: true,
 
   buildModules: [
-    // '@nuxtjs/eslint-module'
     ["@nuxtjs/svg"],
     ['@nuxtjs/pwa'],
     ['@nuxtjs/moment'],
@@ -57,32 +60,29 @@ export default {
     ['@nuxtjs/axios'],
     ['@nuxtjs/pwa'],
     ['nuxt-leaflet'],
-    // ['vue2-leaflet-markercluster']
   ],
 
   axios: {
-    prefix: '/api',
+    prefix: '/api/',
         proxy: true,
   },
 
   proxy: {
     '/api': {
-        target: 'http://localhost:8010',
+        target: 'http://backend:8010',
         pathRewrite: {'^/api/': ''},
         headers: { 'X-API-KEY': 'apiKey' },
-        //logLevel: 'debug',
     },
   },
 
   pwa: {
     meta: {
-        title: 'Sport Objects Map',
+        title: 'Карта Спорта',
         author: 'luckoff',
-        // theme_color: '#f3f3f3',
     },
     manifest: {
-        name: 'Sport Objects Map',
-        short_name: 'Sport Objects Map',
+        name: 'Карта Спорта',
+        short_name: 'Карта Спорта',
         lang: 'ru',
     },
   },

@@ -1,6 +1,5 @@
 <template>
   <blocks-map></blocks-map>
-  <!-- <blocks-graph></blocks-graph> -->
 </template>
 
 <script>
